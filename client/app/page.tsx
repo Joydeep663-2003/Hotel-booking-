@@ -2,12 +2,15 @@
 import { useEffect, useState } from "react";
 import ExperienceCard from "./components/Experiencecard";
 
-
 export default function Home() {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/experiences")
+    const API_BASE_URL =
+      process.env.NEXT_PUBLIC_API_BASE_URL ||
+      "https://hotel-booking-ozji.onrender.com"; // ✅ Render backend URL
+
+    fetch(`${API_BASE_URL}/api/experiences`)
       .then((res) => res.json())
       .then((data) => setData(data))
       .catch((err) => console.error("Error fetching data:", err));
