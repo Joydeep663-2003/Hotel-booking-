@@ -9,6 +9,11 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// ✅ Default route to confirm server is working
+app.get("/", (req, res) => {
+  res.send("✅ BookIt API is running successfully on Render!");
+});
+
 // ✅ All hotels with valid online images (Unsplash)
 const experiences = [
   {
@@ -156,6 +161,6 @@ app.get("/api/experiences/:id", (req, res) => {
   res.json(hotel);
 });
 
-// ✅ Server Start
+// ✅ Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
