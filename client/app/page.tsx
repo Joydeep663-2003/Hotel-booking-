@@ -6,12 +6,14 @@ export default function Home() {
   const [data, setData] = useState<any[]>([]);
 
   useEffect(() => {
-    const API_BASE_URL =
-      process.env.NEXT_PUBLIC_API_BASE_URL ||
-      "https://hotel-booking-ozji.onrender.com"; // ✅ Render backend URL
+    // ✅ Fetch from environment variable for Vercel
+    const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/experiences`;
 
-    fetch(`${API_BASE_URL}/api/experiences`)
-      .then((res) => res.json())
+    fetch(apiUrl)
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch data");
+        return res.json();
+      })
       .then((data) => setData(data))
       .catch((err) => console.error("Error fetching data:", err));
   }, []);
